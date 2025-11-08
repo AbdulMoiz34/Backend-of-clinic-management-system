@@ -1,5 +1,8 @@
 import { Router } from "express";
+import { auth } from "../middleware/auth.middleware.js";
+import { authorize } from "../middleware/role.middleware.js";
 import authRoutes from "./auth.routes.js";
+import adminRoutes from "./admin.routes.js";
 // import patientRoutes from "../modules/patient/routes.js";
 // import authRoutes from "../modules/auth/routes.js";
 // import doctorRoutes from "../modules/doctor/routes.js";
@@ -13,6 +16,7 @@ router.get("/", (req, res) => {
 
 // router.use("/patients", patientRoutes);
 router.use("/auth", authRoutes);
+router.use("/admin", auth, authorize("admin"), adminRoutes);
 // router.use("/doctors", doctorRoutes);
 // router.use("/admin", adminRoutes);
 

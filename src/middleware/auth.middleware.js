@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { FORBIDDEN, UNAUTHORIZED } from "../constants/index.js";
+import { UNAUTHORIZED } from "../constants/index.js";
 import User from "../models/User.model.js";
 
 export const auth = async (req, res, next) => {
@@ -14,16 +14,7 @@ export const auth = async (req, res, next) => {
         req.user = user;
         next();
     } catch (err) {
-        res.clearCookie("token");
+        console.log(err);
         return res.status(UNAUTHORIZED).json({ message: "Invalid token" });
     }
-};
-
-export const authorize = (role) => {
-    return (req, res, next) => {
-        if (role !== req.user?.role) {
-            return res.status(FORBIDDEN).json({ message: "Access denied" });
-        }
-        next();
-    };
 };
