@@ -12,5 +12,4 @@ router.get("/me", auth, (req, res) => {
     res.json({ success: true, user: req.user });
 });
 
-
 export default router;

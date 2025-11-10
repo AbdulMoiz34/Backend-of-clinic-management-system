@@ -5,14 +5,21 @@ const { ObjectId, String, Date } = mongoose.Schema.Types;
 const AppointmentSchema = new mongoose.Schema({
     patient: {
         type: ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
     doctor: {
         type: ObjectId,
-        ref: "Doctor"
+        ref: "Doctor",
+        required: true
     },
-    status: String,
+    status: {
+        type: String,
+        default: "Booked",
+        enum: ["Booked", "Checked-In", "Completed", "Cancelled"]
+    },
     date: Date,
+    time: String,
     patientDisease: String,
     prescription: String
 })
