@@ -83,6 +83,7 @@ const getAllDoctors = async (req, res) => {
             .populate("user", "fullName email");
         res.status(OK).json(doctors);
     } catch (err) {
+        console.log(err);
         res.status(INTERNAL_SERVER_ERROR).json({ message: INTERNAL_SERVER_ERROR_MESSAGE, err });
     }
 }
