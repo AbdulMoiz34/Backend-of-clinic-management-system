@@ -4,6 +4,6 @@ import { createAppointment, getAppointments } from "../controllers/appointment.c
 const router = Router();
 
 router.post("/create-appointment", createAppointment);
-router.get("/appointments/:patientId", getAppointments);
+router.get("/appointments", getAppointments);
 
 export default router;

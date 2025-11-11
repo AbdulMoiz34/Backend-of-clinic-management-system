@@ -10,15 +10,16 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(cookieParser());
-app.use("/api", routes);
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://frontend-teal-alpha-33.vercel.app/",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"]
-}));
+})
+);
+app.use("/api", routes);
 
 const PORT = ENV.PORT || 5000;
+
 if (ENV.NODE_ENV !== "production") {
     app.listen(PORT, () => {
         console.log("server is running.");
