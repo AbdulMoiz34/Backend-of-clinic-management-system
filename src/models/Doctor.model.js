@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const { String, ObjectId, Number, Boolean, Array } = mongoose.Schema.Types;
+const { String, ObjectId, Number } = mongoose.Schema.Types;
 
 const DoctorSchema = new mongoose.Schema({
     dateOfBirth: String,

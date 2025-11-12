@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 app.use(cors({
     origin: "https://frontend-teal-alpha-33.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true
 }));
 

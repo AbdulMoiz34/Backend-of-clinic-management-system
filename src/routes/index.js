@@ -17,6 +17,7 @@ router.use("/auth", authRoutes);
 router.use("/doctors", doctorRoutes);
 router.use("/admin", auth, authorize("admin"), adminRoutes);
 router.use("/patient", auth, authorize("patient"), patientRoutes);
-router.use("/appointments/:id/status", auth , updateAppointmentStatus);
+
+router.patch("/appointments/:id/status", auth , updateAppointmentStatus);
 
 export default router;

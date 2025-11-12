@@ -80,6 +80,7 @@ const updateAppointmentStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
         const user = req.user;
+        console.log(user._id.toString());
 
         const appointment = await Appointment.findById(id);
         if (!appointment) {
@@ -87,31 +88,34 @@ const updateAppointmentStatus = async (req, res) => {
         }
 
         if (user.role === "patient") {
-            if (appointment.patient.toString() !== user._id) {
+            if (appointment.patient.toString() !== user._id.toString()) {
                 return res.status(FORBIDDEN).json({ message: "Not your appointment" });
             }
-            if (status !== "cancelled") {
+            if (status !== "Cancelled") {
                 return res.status(FORBIDDEN).json({ message: "Patients can only cancel" });
             }
         }
 
+
         if (user.role === "doctor") {
-            if (appointment.doctor.toString() !== user._id) {
+            console.log(appointment.doctor);
+            if (appointment.doctor.toString() !== user._id.toString()) {
                 return res.status(FORBIDDEN).json({ message: "Not your appointment" });
             }
-            if (!["Checked-In", "completed"].includes(status)) {
+            if (!["Checked-In", "Completed"].includes(status)) {
                 return res.status(FORBIDDEN).json({ message: "Invalid status for doctor" });
             }
         }
 
         appointment.status = status;
+        Appointment.findByIdAndUpdate(id, { status })
         await appointment.save();
 
         res.json({ message: "Status updated successfully", appointment });
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
 
